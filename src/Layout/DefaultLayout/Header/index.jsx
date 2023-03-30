@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
 import styles from './Header.module.scss';
+import AcccountItem from '../../AccountItem';
 import images from '../../../assets/images';
 import { useEffect, useState } from 'react';
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
@@ -22,13 +23,18 @@ function Header() {
                 </div>
                 <form className={cx('form-search')} action="">
                     <Tippy
+                        interactive
                         visible={searchResult.length > 0}
                         render={(attrs) => (
-                            <PopperWrapper>
-                                <div className={cx('container')} tabIndex="-1" {...attrs}>
-                                    Ket qua
-                                </div>
-                            </PopperWrapper>
+                            <div className={cx('searchResult')} tabIndex="-1" {...attrs}>
+                                <PopperWrapper>
+                                    <h4 className={cx('search-title')}>Accounts</h4>
+                                    <AcccountItem />
+                                    <AcccountItem />
+                                    <AcccountItem />
+                                    <AcccountItem />
+                                </PopperWrapper>
+                            </div>
                         )}
                     >
                         <input id="Hi" className={cx('search-input')} placeholder="Tìm kiếm tài khoản và video" />
