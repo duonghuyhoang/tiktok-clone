@@ -1,22 +1,33 @@
-import { useState } from "react";
-
-
-
+import './App.css';
+import { Fragment } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Defaultlayout from './Layout/DefaultLayout';
+import { publicRoutes } from './routes';
 
 function App() {
-  
-const [name ,setName] = useState('Duong');
-console.log(name);  
-const handleClick = () => {
-  setName(name +' Huy Hoang')
-}
-  return (
-    <div className="App">
-      
-       <input type="text"  value={name}/>
-       <button onClick={handleClick}>Click me!</button>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    {publicRoutes.map((route, index) => {
+                        const Layout = route.layout === null ? Fragment : Defaultlayout;
+                        const Page = route.component;
+                        return (
+                            <Route
+                                key={index}
+                                path={route.part}
+                                element={
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
+                                }
+                            />
+                        );
+                    })}
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
