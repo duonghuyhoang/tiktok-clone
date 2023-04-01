@@ -26,11 +26,11 @@ function Header() {
                     </Button>
                     <Button primary>Log in</Button>
 
-                    <M enu>
+                    <Menu>
                         <button className={cx('more-btn')}>
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                    </M>
+                    </Menu>
                 </div>
             </div>
         </header>

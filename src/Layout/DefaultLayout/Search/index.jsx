@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import classNames from 'classnames/bind';
 import HeadlessTippy from '@tippyjs/react/headless';
 import AcccountItem from '../../AccountItem';
@@ -22,10 +23,15 @@ function Search() {
             return;
         }
         setLoading(true);
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`)
-            .then((res) => res.json())
+        axios
+            .get(`https://tiktok.fullstack.edu.vn/api/users/search`, {
+                params: {
+                    q: debounce,
+                    type: 'less',
+                },
+            })
             .then((res) => {
-                setSearchResult(res.data);
+                setSearchResult(res.data.data);
                 setLoading(false);
             })
             .catch(() => {
@@ -38,6 +44,7 @@ function Search() {
     return (
         <form className={cx('form-search')} action="">
             <HeadlessTippy
+                appendTo={() => document.body}
                 interactive
                 onClickOutside={handleHideResult}
                 visible={showResult && searchResult.length > 0}
@@ -56,7 +63,12 @@ function Search() {
                     ref={inputRef}
                     value={searchValue}
                     className={cx('search-input')}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={(e) => {
+                        const searchValue = e.target.value;
+                        if (!searchValue.startsWith(' ')) {
+                            setSearchValue(searchValue);
+                        }
+                    }}
                     placeholder="Tìm kiếm tài khoản và video"
                     onFocus={() => setShowResult(true)}
                 />
@@ -78,7 +90,12 @@ function Search() {
                 </div>
             )}
 
-            <button className={cx('search-btn')}>
+            <button
+                className={cx('search-btn')}
+                onMouseDown={(e) => {
+                    e.preventDefault();
+                }}
+            >
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>

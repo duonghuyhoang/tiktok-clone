@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { PropTypes } from 'prop-types';
 import styles from './AcccountItem.module.scss';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
@@ -19,5 +20,7 @@ function AcccountItem({ data }) {
         </Link>
     );
 }
-
+AcccountItem.checkPropTypes = {
+    data: PropTypes.object,
+};
 export default AcccountItem;
