@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '../../../assets/images';
@@ -12,7 +13,9 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('content')}>
                 <div className={cx('logo')}>
-                    <img src={images.logo} alt="tiktok" />
+                    <Link to={'/'}>
+                        <img src={images.logo} alt="tiktok" />
+                    </Link>
                 </div>
 
                 <Search />
@@ -23,11 +26,11 @@ function Header() {
                     </Button>
                     <Button primary>Log in</Button>
 
-                    <Menu>
+                    <M enu>
                         <button className={cx('more-btn')}>
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                    </Menu>
+                    </M>
                 </div>
             </div>
         </header>
